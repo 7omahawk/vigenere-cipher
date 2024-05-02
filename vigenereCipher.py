@@ -5,36 +5,64 @@ domain = 26
 string = "abcdefghijklmnopqrstuvwxyz"
 
 def keyValue(key):
-    k = ""
+    k = ()
     for i in range(len(key)):
         for j in range(len(string)):
             if string[j] == key[i]:
-                k = k + str(j)      # the value of the key
-                print(k)
-                # return k
+                k = k + (j,)      # the value of the key
+    return k
+
+
+# converting key value to number and making keyStream size as userInput size
+def theKey(userInput, key, string):
+    
+    keyStream = ()
+    counter = 0
+
+    while(counter <= len(userInput)):
+        for m in range(len(key)):
+            for n in range(len(string)):
+                if string[n] == key[m]:
+
+                    keyStream = keyStream + (n,)
+        counter += len(key)
+
+    keyStream = keyStream[:len(userInput)]
+    
+    print(keyStream)
 
 
 def encryption(userInput, key, domain, string):
     
-    
     cipher = ""
+    theKey(userInput, key, string)
+
+
     for i in range(len(userInput)):
         for j in range(len(string)):
             if string[j] == userInput[i]:
-                # k = keyValue(key)
-                k = keyValue(key)
-                # mainKey = int(str(k)[::-1])   #inverse the value of q by string slicing reverse method
-                # fakeKey = mainKey
-                # mainKey = fakeKey % 10
-                # mainKey = int(fakeKey / 10)
-                mainKey = 1
-                text = (string[(j+mainKey)%domain])
+                text = (string[(j+i)%domain])
                 cipher = cipher + text
     
-
-                
     print(f"The encrypted message is: {cipher}")
     print('\n')
+
+# def encryption(userInput, key, domain, string):
+    
+#     cipher = ""
+#     mainKey = keyValue(key)
+#     print(mainKey)
+    
+#     for i in range(len(userInput)):
+#         for j in range(len(string)):
+#             if string[j] == userInput[i]:
+#                 for m in mainKey:
+#                         print(m)
+#                         text = (string[(j+m)%domain])
+#                         cipher = cipher + text
+    
+#     print(f"The encrypted message is: {cipher}")
+#     print('\n')
 
 
 
