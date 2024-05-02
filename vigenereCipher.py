@@ -4,19 +4,11 @@ import sys
 domain = 26
 string = "abcdefghijklmnopqrstuvwxyz"
 
-def keyValue(key):
-    k = ()
-    for i in range(len(key)):
-        for j in range(len(string)):
-            if string[j] == key[i]:
-                k = k + (j,)      # the value of the key
-    return k
-
 
 # converting key value to number and making keyStream size as userInput size
 def theKey(userInput, key, string):
     
-    keyStream = ()
+    keyStream = ()   # making tuples for indvidually identify the alphabetes numbers instead of string
     counter = 0
 
     while(counter <= len(userInput)):
@@ -28,8 +20,7 @@ def theKey(userInput, key, string):
         counter += len(key)
 
     keyStream = keyStream[:len(userInput)]
-    
-    print(keyStream)
+    return keyStream
 
 
 def encryption(userInput, key, domain, string):
@@ -37,33 +28,33 @@ def encryption(userInput, key, domain, string):
     cipher = ""
     theKey(userInput, key, string)
 
+    k = theKey(userInput, key, string)
 
     for i in range(len(userInput)):
         for j in range(len(string)):
             if string[j] == userInput[i]:
-                text = (string[(j+i)%domain])
+                text = (string[(j+k[i])%domain])
                 cipher = cipher + text
     
     print(f"The encrypted message is: {cipher}")
     print('\n')
 
-# def encryption(userInput, key, domain, string):
-    
-#     cipher = ""
-#     mainKey = keyValue(key)
-#     print(mainKey)
-    
-#     for i in range(len(userInput)):
-#         for j in range(len(string)):
-#             if string[j] == userInput[i]:
-#                 for m in mainKey:
-#                         print(m)
-#                         text = (string[(j+m)%domain])
-#                         cipher = cipher + text
-    
-#     print(f"The encrypted message is: {cipher}")
-#     print('\n')
 
+def decryption(userInput, key, domain, string):
+    
+    plainText = ""
+    theKey(userInput, key, string)
+
+    k = theKey(userInput, key, string)
+
+    for i in range(len(userInput)):
+        for j in range(len(string)):
+            if string[j] == userInput[i]:
+                text = (string[(j-k[i])%domain])
+                plainText = plainText + text
+    
+    print(f"The decrypted message is: {plainText}")
+    print('\n')
 
 
 while(True):
@@ -78,19 +69,16 @@ while(True):
         if number == 1:
             userInput = input("Enter your text to encrypt: ")
             key = input("Enter the key: ")
-            print(key)
             userInput = userInput.lower()
             encryption(userInput, key, domain, string)
         elif number == 2:
             userInput = input("Enter your text to decrypt: ")
-            key = int(input("Enter the key: "))
+            key = input("Enter the key: ")
             userInput = userInput.lower()
+            decryption(userInput, key, domain, string)
         elif number == 3:
             sys.exit()
         else:
             print("Input should be a number from 1 to 3")
 
     choice(number) 
-
-
-
