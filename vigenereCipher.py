@@ -69,11 +69,13 @@ while(True):
         if number == 1:
             userInput = input("Enter your text to encrypt: ")
             key = input("Enter the key: ")
+            userInput = userInput.replace(" ","")    # excluding space from the sentence
             userInput = userInput.lower()
             encryption(userInput, key, domain, string)
         elif number == 2:
             userInput = input("Enter your text to decrypt: ")
             key = input("Enter the key: ")
+            userInput = userInput.replace(" ","")    # excluding space from the sentence
             userInput = userInput.lower()
             decryption(userInput, key, domain, string)
         elif number == 3:
